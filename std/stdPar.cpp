@@ -1,5 +1,3 @@
-// parallelSTLPerformance.cpp
-
 #include <algorithm>
 #include <cmath>
 #include <chrono>
@@ -30,8 +28,8 @@ int main(){
     
   std::vector<double> randValues;
   randValues.reserve(size);
-   
-  std::mt19937 engine;
+
+  std::mt19937 engine;  
   std::uniform_real_distribution<> uniformDist(0, pi / 2);
   for (long long i = 0 ; i < size ; ++i) randValues.push_back(uniformDist(engine));
     

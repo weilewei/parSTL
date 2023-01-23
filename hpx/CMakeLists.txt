@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.24.3)
-project(hpxPar LANGUAGES CXX)
 find_package(HPX REQUIRED)
 
 if (HPX_FOUND)
