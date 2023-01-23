@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20.3)
-project(parSTL LANGUAGES CXX)
+project(parSTL LANGUAGES CXX C)
 
 set(CMAKE_BUILD_TYPE Release)
 
@@ -12,3 +12,4 @@ add_subdirectory(std)
 add_subdirectory(hpx)
 add_subdirectory(kokkos)
 add_subdirectory(nvc)
+#add_subdirectory(gnu)
