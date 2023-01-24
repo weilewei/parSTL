@@ -6,8 +6,8 @@ std::random_device rd;     // only used once to initialise (seed) engine
 std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
 std::uniform_int_distribution<int> uni(0,65535); // guaranteed unbiased
 
-// constexpr long long TEST_SIZE = 500'000'000;
-constexpr long long TEST_SIZE = 25000000;
+constexpr long long TEST_SIZE = 500000000;
+// constexpr long long TEST_SIZE = 25000000;
 constexpr long long REPEAT = 10;
 
 template <typename Func>
