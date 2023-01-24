@@ -6,3 +6,4 @@ endif()
 
 add_executable(hpxPar hpxPar.cpp)
 target_link_libraries(hpxPar PUBLIC HPX::hpx HPX::wrap_main HPX::iostreams_component)
+target_include_directories(hpxPar PRIVATE "${CMAKE_CURRENT_LIST_DIR}/commons")
