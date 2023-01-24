@@ -7,8 +7,8 @@ std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in thi
 std::uniform_int_distribution<int> uni(0,65535); // guaranteed unbiased
 
 // constexpr long long TEST_SIZE = 500'000'000;
-constexpr long long TEST_SIZE = 500000;
-constexpr long long REPEAT = 2;
+constexpr long long TEST_SIZE = 25000000;
+constexpr long long REPEAT = 10;
 
 template <typename Func>
 void getExecutionTime(const std::string& title, Func func){                   // (4)
@@ -22,5 +22,5 @@ void getExecutionTime(const std::string& title, Func func){                   //
     totalDur += dur;
   }
 
-  std::cout << title << ": " << totalDur.count() << " sec. avarged over " << REPEAT << " runs." << std::endl;
+  std::cout << title << ": " << totalDur.count() / REPEAT << " sec. avarged over " << REPEAT << " runs." << std::endl;
 }

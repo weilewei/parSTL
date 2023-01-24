@@ -10,8 +10,13 @@ make clean
 cmake ..
 make
 
+mkdir -p build/gnuPar
+$CC -I/global/homes/w/wwei/src/parSTL/commons/ gnu/gnuPar.cpp -lstdc++ -fopenmp -lm -o build/gnuPar/gnuPar
+
+cd build
 ./nvc/nvcPar
 ./hpx/hpxPar
-OMP_PLACES=threads OMP_PROC_BIND=spread ./kokkos/kokkosPar 
+OMP_PLACES=threads OMP_PROC_BIND=close ./kokkos/kokkosPar 
 ./std/stdPar
+./gnuPar/gnuPar
 

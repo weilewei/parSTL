@@ -26,4 +26,5 @@ int main(int argc, char* argv[]) {
     }
 
     Kokkos::finalize();
+    std::cout << "\n";
 }
