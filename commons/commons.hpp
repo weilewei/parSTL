@@ -22,5 +22,5 @@ void getExecutionTime(const std::string& title, Func func){                   //
     totalDur += dur;
   }
 
-  std::cout << title << ": " << totalDur.count() / REPEAT << " sec. avarged over " << REPEAT << " runs." << std::endl;
+  std::cout << title << ": " << totalDur.count() / REPEAT << " sec. avaraged over " << REPEAT << " runs." << std::endl;
 }
