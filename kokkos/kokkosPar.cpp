@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
 
       getExecutionTime("kokkos::parallel_for transform", [&workVec]() mutable {                // (6)
         Kokkos::parallel_for("kokkos::parallel_for transform", TEST_SIZE, KOKKOS_LAMBDA (const int& i) {
-          workVec(i) = std::tan(i);
+          workVec(i) = std::tan(workVec(i) );
         });
       });
     }

@@ -11,7 +11,7 @@ make
 cd /global/homes/w/wwei/src/parSTL/build
 ./nvc/nvcPar
 ./hpx/hpxPar --hpx:threads=64 
-OMP_PLACES=threads OMP_PROC_BIND=close ./kokkos/kokkosPar 
+OMP_NUM_THREADS=64 OMP_PLACES=threads OMP_PROC_BIND=close ./kokkos/kokkosPar 
 ./std/stdPar
-./gnuPar/gnuPar
+./gnu/gnuPar
 

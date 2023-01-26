@@ -3,7 +3,7 @@
 #SBATCH -A nstaff
 
 #SBATCH -C gpu
-#SBATCH -t 20:00
+#SBATCH -t 30:00
 #SBATCH -N 1
 #SBATCH --ntasks-per-node=1
 
