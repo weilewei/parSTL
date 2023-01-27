@@ -8,25 +8,38 @@ int main(){
     workVec[i] = uni(rng);
   }
 
-  getExecutionTime("nvc++ std::execution::seq", [workVec]() mutable {                // (6)
+  getExecutionTime("nvc++ transform std::execution::seq", [workVec]() mutable {                // (6)
     std::transform(std::execution::seq, workVec.begin(), workVec.end(),        // (1)
 		   workVec.begin(), 
                    [](double arg){ return std::tan(arg); }              
                   );
     });
         
-  getExecutionTime("nvc++ std::execution::par", [workVec]() mutable {                // (7)
+  getExecutionTime("nvc++ transform std::execution::par", [workVec]() mutable {                // (7)
     std::transform(std::execution::par, workVec.begin(), workVec.end(),        // (2)
 		   workVec.begin(), 
                    [](double arg){ return std::tan(arg); }
                   );
   });
      
-  getExecutionTime("nvc++ std::execution::par_unseq", [workVec]() mutable {          // (8)
+  getExecutionTime("nvc++ transform std::execution::par_unseq", [workVec]() mutable {          // (8)
     std::transform(std::execution::par_unseq, workVec.begin(), workVec.end(),  // (3)
 		   workVec.begin(), 
                    [](double arg){ return std::tan(arg); }
                   );
+  });
+
+
+  getExecutionTime("nvc++ sort std::execution::seq", [workVec]() mutable {
+    std::sort(std::execution::seq, workVec.begin(), workVec.end());
+  });
+         
+  getExecutionTime("nvc++ sort std::execution::par", [workVec]() mutable { 
+    std::sort(std::execution::par, workVec.begin(), workVec.end());  
+  });
+     
+  getExecutionTime("nvc++ sort std::execution::par_unseq", [workVec]() mutable {
+    std::sort(std::execution::par_unseq, workVec.begin(), workVec.end()); 
   });
 
   std::cout << '\n';

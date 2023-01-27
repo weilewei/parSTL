@@ -32,5 +32,17 @@ int main(){
                   );
   });
 
+  getExecutionTime("sort hpx::execution::seq", [workVec]() mutable {
+    hpx::sort(hpx::execution::seq, workVec.begin(), workVec.end());
+  });
+         
+  getExecutionTime("sort hpx ::execution::par", [workVec]() mutable { 
+    hpx::sort(hpx::execution::par, workVec.begin(), workVec.end());        // (2)
+  });
+     
+  getExecutionTime("sort hpx::execution::par_unseq", [workVec]() mutable {          // (8)
+    hpx::sort(hpx::execution::par_unseq, workVec.begin(), workVec.end()); 
+  });
+
   std::cout << '\n';
 }

@@ -8,25 +8,37 @@ int main(){
     workVec[i] = uni(rng);
   }
     
-  getExecutionTime("std::execution::seq", [workVec]() mutable {                // (6)
+  getExecutionTime("transform std::execution::seq", [workVec]() mutable {                // (6)
     std::transform(std::execution::seq, workVec.begin(), workVec.end(),        // (1)
 		   workVec.begin(), 
                    [](double arg){ return std::tan(arg); }              
                   );
     });
         
-  getExecutionTime("std::execution::par", [workVec]() mutable {                // (7)
+  getExecutionTime("transform std::execution::par", [workVec]() mutable {                // (7)
     std::transform(std::execution::par, workVec.begin(), workVec.end(),        // (2)
 		   workVec.begin(), 
                    [](double arg){ return std::tan(arg); }
                   );
   });
      
-  getExecutionTime("std::execution::par_unseq", [workVec]() mutable {          // (8)
+  getExecutionTime("transform std::execution::par_unseq", [workVec]() mutable {          // (8)
     std::transform(std::execution::par_unseq, workVec.begin(), workVec.end(),  // (3)
 		   workVec.begin(), 
                    [](double arg){ return std::tan(arg); }
                   );
+  });
+
+  getExecutionTime("sort std::execution::seq", [workVec]() mutable {
+    std::sort(std::execution::seq, workVec.begin(), workVec.end());
+  });
+         
+  getExecutionTime("sort std::execution::par", [workVec]() mutable { 
+    std::sort(std::execution::par, workVec.begin(), workVec.end());        // (2)
+  });
+     
+  getExecutionTime("sort std::execution::par_unseq", [workVec]() mutable {          // (8)
+    std::sort(std::execution::par_unseq, workVec.begin(), workVec.end()); 
   });
 
   std::cout << '\n';

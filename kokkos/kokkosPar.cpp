@@ -1,6 +1,7 @@
 #include <commons.hpp>
 
 #include<Kokkos_Core.hpp>
+#include <Kokkos_Sort.hpp>
 
 int main(int argc, char* argv[]) {
     Kokkos::initialize(argc,argv);
@@ -36,6 +37,18 @@ int main(int argc, char* argv[]) {
 
       test();
       getExecutionTime("kokkos::parallel_for transform optimized version", test);
+    }
+
+    {
+      Kokkos::View<int*> workVec("x", TEST_SIZE);
+      Kokkos::DefaultExecutionSpace exec;
+   
+      for (long long i = 0 ; i < TEST_SIZE; ++i) 
+        workVec(i) = uni(rng);
+
+      getExecutionTime("kokkos::parallel_for sort", [&workVec, &exec]() mutable { 
+        Kokkos::sort(exec, workVec);
+      });
     }
 
     Kokkos::finalize();

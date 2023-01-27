@@ -13,6 +13,9 @@ int main(){
                    [](double arg){ return std::tan(arg); }              
                   );
     });
+    
+  getExecutionTime("__gnu_parallel::sort", [workVec]() mutable {                // (6)
+    __gnu_parallel::sort(workVec.begin(), workVec.end());});
 
   std::cout << '\n';
     
