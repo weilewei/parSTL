@@ -4,6 +4,7 @@
 #include <hpx/iostream.hpp>
 #include <hpx/algorithm.hpp>
 #include <hpx/execution.hpp>
+#include <hpx/parallel/datapar.hpp>
     
 int main(){
   std::vector<double> workVec(TEST_SIZE);
@@ -11,26 +12,40 @@ int main(){
     workVec[i] = uni(rng);
   }
     
-  getExecutionTime("hpx::execution::seq", [workVec]() mutable {                // (6)
+  getExecutionTime("transform hpx::execution::seq", [workVec]() mutable {                // (6)
     hpx::transform(hpx::execution::seq, workVec.begin(), workVec.end(),        // (1)
 		   workVec.begin(), 
                    [](double arg){ return std::tan(arg); }              
                   );
     });
         
-  getExecutionTime("hpx::execution::par", [workVec]() mutable {                // (7)
+  getExecutionTime("transform hpx::execution::par", [workVec]() mutable {                // (7)
     hpx::transform(hpx::execution::par, workVec.begin(), workVec.end(),        // (2)
 		   workVec.begin(), 
                    [](double arg){ return std::tan(arg); }
                   );
   });
      
-  getExecutionTime("hpx::execution::par_unseq", [workVec]() mutable {          // (8)
+  getExecutionTime("transform hpx::execution::par_unseq", [workVec]() mutable {          // (8)
     hpx::transform(hpx::execution::par_unseq, workVec.begin(), workVec.end(),  // (3)
 		   workVec.begin(), 
                    [](double arg){ return std::tan(arg); }
                   );
   });
+     
+  // getExecutionTime("transform hpx::execution::simd", [workVec]() mutable {          // (8)
+  //   hpx::transform(hpx::execution::simd, workVec.begin(), workVec.end(),  // (3)
+		//    workVec.begin(), 
+  //                  [](double arg){ return std::tan(arg); }
+  //                 );
+  // });
+  //    
+  // getExecutionTime("transform hpx::execution::par_simd", [workVec]() mutable {          // (8)
+  //   hpx::transform(hpx::execution::par_simd, workVec.begin(), workVec.end(),  // (3)
+		//    workVec.begin(), 
+  //                  [](double arg){ return std::tan(arg); }
+  //                 );
+  // });
 
   getExecutionTime("sort hpx::execution::seq", [workVec]() mutable {
     hpx::sort(hpx::execution::seq, workVec.begin(), workVec.end());
