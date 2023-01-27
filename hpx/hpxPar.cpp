@@ -4,12 +4,6 @@
 #include <hpx/iostream.hpp>
 #include <hpx/algorithm.hpp>
 #include <hpx/execution.hpp>
-
-#include <cmath>
-#include <execution>
-#include <iostream>
-#include <string>
-#include <vector>
     
 int main(){
   std::vector<double> workVec(TEST_SIZE);

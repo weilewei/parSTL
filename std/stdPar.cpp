@@ -1,11 +1,5 @@
 #include <commons.hpp>
 
-#include <algorithm>
-#include <cmath>
-#include <execution>
-#include <iostream>
-#include <string>
-#include <vector>
     
 int main(){
 

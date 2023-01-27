@@ -2,13 +2,6 @@
 
 #include<Kokkos_Core.hpp>
 
-#include <algorithm>
-#include <cmath>
-#include <execution>
-#include <iostream>
-#include <string>
-#include <vector>
-
 int main(int argc, char* argv[]) {
     Kokkos::initialize(argc,argv);
 
