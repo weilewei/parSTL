@@ -4,11 +4,10 @@
 #include <hpx/iostream.hpp>
 #include <hpx/algorithm.hpp>
 #include <hpx/execution.hpp>
-#include <hpx/parallel/datapar.hpp>
     
-int main(){
-  std::vector<double> workVec(TEST_SIZE);
-  for (size_t i =0; i < TEST_SIZE; ++i) {
+void runTaskSize(const long long length){
+  std::vector<double> workVec(length);
+  for (size_t i =0; i < length; ++i) {
     workVec[i] = uni(rng);
   }
     
@@ -32,20 +31,6 @@ int main(){
                    [](double arg){ return std::tan(arg); }
                   );
   });
-     
-  // getExecutionTime("transform hpx::execution::simd", [workVec]() mutable {          // (8)
-  //   hpx::transform(hpx::execution::simd, workVec.begin(), workVec.end(),  // (3)
-		//    workVec.begin(), 
-  //                  [](double arg){ return std::tan(arg); }
-  //                 );
-  // });
-  //    
-  // getExecutionTime("transform hpx::execution::par_simd", [workVec]() mutable {          // (8)
-  //   hpx::transform(hpx::execution::par_simd, workVec.begin(), workVec.end(),  // (3)
-		//    workVec.begin(), 
-  //                  [](double arg){ return std::tan(arg); }
-  //                 );
-  // });
 
   getExecutionTime("sort hpx::execution::seq", [workVec]() mutable {
     hpx::sort(hpx::execution::seq, workVec.begin(), workVec.end());
@@ -60,4 +45,15 @@ int main(){
   });
 
   std::cout << '\n';
+}
+
+int main(int argc, char** argv){
+  long long length;
+
+  char *a = argv[1];
+  length = atoll(a);
+
+  std::cout << "running experiment with size of " + std::to_string(length) << "\n";
+
+  runTaskSize(length);
 }

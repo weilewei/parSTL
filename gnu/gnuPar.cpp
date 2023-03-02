@@ -1,9 +1,9 @@
 #include <commons.hpp>
 #include <parallel/algorithm>
 
-int main(){
-  std::vector<double> workVec(TEST_SIZE);
-  for (size_t i =0; i < TEST_SIZE; ++i) {
+void runTaskSize(const long long length) {
+  std::vector<double> workVec(length);
+  for (size_t i =0; i < length; ++i) {
     workVec[i] = uni(rng);
   }
     
@@ -18,5 +18,16 @@ int main(){
     __gnu_parallel::sort(workVec.begin(), workVec.end());});
 
   std::cout << '\n';
-    
+}
+
+
+int main(int argc, char** argv){
+  long long length;
+
+  char *a = argv[1];
+  length = atoll(a);
+
+  std::cout << "running experiment with size of " + std::to_string(length) << "\n";
+
+  runTaskSize(length);
 }

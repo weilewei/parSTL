@@ -1,10 +1,10 @@
 
 #include <commons.hpp>
 
-int main(){
+void runTaskSize(const long long length) {
 
-  std::vector<double> workVec(TEST_SIZE);
-  for (size_t i =0; i < TEST_SIZE; ++i) {
+  std::vector<double> workVec(length);
+  for (size_t i =0; i < length; ++i) {
     workVec[i] = uni(rng);
   }
 
@@ -43,4 +43,16 @@ int main(){
   });
 
   std::cout << '\n';
+}
+
+
+int main(int argc, char** argv){
+  long long length;
+
+  char *a = argv[1];
+  length = atoll(a);
+
+  std::cout << "running experiment with size of " + std::to_string(length) << "\n";
+
+  runTaskSize(length);
 }
