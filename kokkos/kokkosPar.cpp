@@ -1,6 +1,6 @@
 #include <commons.hpp>
 
-#include<Kokkos_Core.hpp>
+#include <Kokkos_Core.hpp>
 #include <Kokkos_Sort.hpp>
 
 void runTaskSize(const long long length) {
@@ -24,6 +24,10 @@ void runTaskSize(const long long length) {
 
   test();
   getExecutionTime("kokkos::parallel_for transform optimized version", test);
+
+  // getExecutionTime("sort kokkos", [workVec]() mutable {
+  //   Kokkos::sort(workVec); 
+  // });
 }
 
 int main(int argc, char* argv[]) {
