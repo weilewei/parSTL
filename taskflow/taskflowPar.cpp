@@ -23,7 +23,7 @@ int main(int argc, char** argv){
   }
 
   tf::Taskflow t1;
-  t1.for_each(workVec.begin(), workVec.end(), [] (double arg) {
+  t1.for_each(workVec.begin(), workVec.end(), [] (double& arg) {
     arg = std::tan(arg);
   });
     
