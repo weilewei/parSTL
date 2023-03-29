@@ -7,14 +7,14 @@ void runTaskSize(const long long length) {
     workVec[i] = uni(rng);
   }
     
-  getExecutionTime("__gnu_parallel::transform", [workVec]() mutable {                // (6)
-    __gnu_parallel::transform(workVec.begin(), workVec.end(),        // (1)
+  getExecutionTime("__gnu_parallel::transform", [workVec]() mutable {
+    __gnu_parallel::transform(workVec.begin(), workVec.end(), 
 		   workVec.begin(), 
                    [](double arg){ return std::tan(arg); }              
                   );
     });
     
-  getExecutionTime("__gnu_parallel::sort", [workVec]() mutable {                // (6)
+  getExecutionTime("__gnu_parallel::sort", [workVec]() mutable {
     __gnu_parallel::sort(workVec.begin(), workVec.end());});
 
   std::cout << '\n';

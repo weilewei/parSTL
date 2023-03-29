@@ -11,22 +11,22 @@ void runTaskSize(const long long length){
     workVec[i] = uni(rng);
   }
     
-  getExecutionTime("transform hpx::execution::seq", [workVec]() mutable {                // (6)
-    hpx::transform(hpx::execution::seq, workVec.begin(), workVec.end(),        // (1)
+  getExecutionTime("transform hpx::execution::seq", [workVec]() mutable {
+    hpx::transform(hpx::execution::seq, workVec.begin(), workVec.end(),
 		   workVec.begin(), 
                    [](double arg){ return std::tan(arg); }              
                   );
     });
         
-  getExecutionTime("transform hpx::execution::par", [workVec]() mutable {                // (7)
-    hpx::transform(hpx::execution::par, workVec.begin(), workVec.end(),        // (2)
+  getExecutionTime("transform hpx::execution::par", [workVec]() mutable {
+    hpx::transform(hpx::execution::par, workVec.begin(), workVec.end(),
 		   workVec.begin(), 
                    [](double arg){ return std::tan(arg); }
                   );
   });
      
-  getExecutionTime("transform hpx::execution::par_unseq", [workVec]() mutable {          // (8)
-    hpx::transform(hpx::execution::par_unseq, workVec.begin(), workVec.end(),  // (3)
+  getExecutionTime("transform hpx::execution::par_unseq", [workVec]() mutable {
+    hpx::transform(hpx::execution::par_unseq, workVec.begin(), workVec.end(),
 		   workVec.begin(), 
                    [](double arg){ return std::tan(arg); }
                   );
@@ -37,10 +37,10 @@ void runTaskSize(const long long length){
   });
          
   getExecutionTime("sort hpx ::execution::par", [workVec]() mutable { 
-    hpx::sort(hpx::execution::par, workVec.begin(), workVec.end());        // (2)
+    hpx::sort(hpx::execution::par, workVec.begin(), workVec.end());
   });
      
-  getExecutionTime("sort hpx::execution::par_unseq", [workVec]() mutable {          // (8)
+  getExecutionTime("sort hpx::execution::par_unseq", [workVec]() mutable {
     hpx::sort(hpx::execution::par_unseq, workVec.begin(), workVec.end()); 
   });
 

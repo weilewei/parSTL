@@ -25,6 +25,7 @@ void runTaskSize(const long long length) {
   test();
   getExecutionTime("kokkos::parallel_for transform optimized version", test);
 
+  // Kokkos sort will take much longer time to complete, so we exclude it in the benchmark 
   // getExecutionTime("sort kokkos", [workVec]() mutable {
   //   Kokkos::sort(workVec); 
   // });
@@ -46,15 +47,3 @@ int main(int argc, char* argv[]) {
   std::cout << "\n";
 
 }
-    // {
-    //   Kokkos::View<double*> workVec ("x", length);
-   
-    //   for (long long i = 0 ; i < length; ++i) 
-    //     workVec(i) = uni(rng);
-
-    //   getExecutionTime("kokkos::parallel_for transform", [&workVec]() mutable {                // (6)
-    //     Kokkos::parallel_for("kokkos::parallel_for transform", length, KOKKOS_LAMBDA (const int& i) {
-    //       workVec(i) = std::tan(workVec(i) );
-    //     });
-    //   });
-    // }
