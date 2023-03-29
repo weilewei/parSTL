@@ -1,24 +1,39 @@
 cmake_minimum_required(VERSION 3.20.3)
-project(parSTL LANGUAGES CXX C)
-
+project(parSTL LANGUAGES CXX)
 set(CMAKE_BUILD_TYPE Release)
 
-# set(TBB_DIR "/global/homes/w/wwei/install/oneTBB/lib64/cmake/TBB/")
-# set(HPX_DIR "/global/homes/w/wwei/install/hpx_gcc_Release/lib64/cmake/HPX/")
-# # set(Kokkos_DIR "/global/homes/w/wwei/install/kokkos_gcc_openmp/lib64/cmake/Kokkos/")
-# set(Kokkos_DIR "/global/homes/w/wwei/install/kokkos_gcc_threads/lib64/cmake/Kokkos/")
+if(HPX_DIR)
+    set(HPX_DIR ${HPX_DIR} CACHE PATH "HPX_DIR")
+else()
+    error("HPX_DIR not set")
+endif()
 
-# set(HPX_DIR "/global/homes/w/wwei/install/hpx_clang_Release/lib64/cmake/HPX/")
-# set(Kokkos_DIR "/global/homes/w/wwei/install/kokkos_clang_threads//lib64/cmake/Kokkos/")
-# # set(Kokkos_DIR "/global/homes/w/wwei/install/kokkos_clang_openmp//lib64/cmake/Kokkos/")
-# set(TBB_DIR "/global/homes/w/wwei/install/oneTBB_clang/lib64/cmake/TBB/")
+if(Kokkos_DIR)
+    set(Kokkos_DIR ${HPX_DIR} CACHE PATH "Kokkos_DIR")
+else()
+    error("Kokkos_DIR not set")
+endif()
+
+# TBB package will be required for stdTbb build 
+if(TBB_DIR)
+    set(TBB_DIR ${HPX_DIR} CACHE PATH "TBB_DIR")
+else()
+    error("TBB_DIR not set")
+endif()
+
+# nvhpc 22.9 and beyond is recommended 
+if(NVCXX)
+    set(NVCXX ${NVCXX} CACHE PATH "NVCXX")
+else()
+    error("NVCXX not set")
+endif()
 
 include_directories(commons)
 
 add_subdirectory(stdTbb)
 add_subdirectory(hpx)
 add_subdirectory(kokkos)
-# add_subdirectory(nvc)
 add_subdirectory(gnu)
 add_subdirectory(taskflow)
+add_subdirectory(nvc)
 
