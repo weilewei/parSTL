@@ -9,7 +9,9 @@ and frameworks.
 
 # How to Build
 Example build script:
-``` bash
+
+```bash
+
 module load gcc/11.2.0
 module load cmake/3.20.4
 
@@ -19,9 +21,9 @@ cd parSTL
 mkdir build && cd build
 
 cmake \
-    -DTBB_DIR=/global/homes/w/wwei/install/oneTBB/lib64/cmake/TBB/ \
-    -DHPX_DIR=/global/homes/w/wwei/install/hpx_gcc_Release/lib64/cmake/HPX/ \
-    -DKokkos_DIR=/global/homes/w/wwei/install/kokkos_gcc_openmp/lib64/cmake/Kokkos/ \
+    -DTBB_DIR=$HOME/install/oneTBB/lib64/cmake/TBB/ \
+    -DHPX_DIR=$HOME/install/hpx_gcc_Release/lib64/cmake/HPX/ \
+    -DKokkos_DIR=$HOME/kokkos_gcc_openmp/lib64/cmake/Kokkos/ \
     -DNVCXX=/opt/nvidia/hpc_sdk/Linux_x86_64/22.9/compilers/bin/nvc++ \
     ..
 
