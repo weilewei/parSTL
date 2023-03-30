@@ -3,31 +3,30 @@
 
 void runTaskSize(const long long length) {
   std::vector<double> workVec(length);
-  for (size_t i =0; i < length; ++i) {
+  for (size_t i = 0; i < length; ++i) {
     workVec[i] = uni(rng);
   }
-    
+
   getExecutionTime("__gnu_parallel::transform", [workVec]() mutable {
-    __gnu_parallel::transform(workVec.begin(), workVec.end(), 
-		   workVec.begin(), 
-                   [](double arg){ return std::tan(arg); }              
-                  );
-    });
-    
+    __gnu_parallel::transform(workVec.begin(), workVec.end(), workVec.begin(),
+                              [](double arg) { return std::tan(arg); });
+  });
+
   getExecutionTime("__gnu_parallel::sort", [workVec]() mutable {
-    __gnu_parallel::sort(workVec.begin(), workVec.end());});
+    __gnu_parallel::sort(workVec.begin(), workVec.end());
+  });
 
   std::cout << '\n';
 }
 
-
-int main(int argc, char** argv){
+int main(int argc, char **argv) {
   long long length;
 
   char *a = argv[1];
   length = atoll(a);
 
-  std::cout << "running experiment with size of " + std::to_string(length) << "\n";
+  std::cout << "running experiment with size of " + std::to_string(length)
+            << "\n";
 
   runTaskSize(length);
 }

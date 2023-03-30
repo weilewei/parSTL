@@ -1,11 +1,11 @@
 # C++ Parallel Algorithms Benchmark
 
 This is a brief evaluation of parallel algorithms in C++. The main focus is on parallel
-transform and sort algorithms, which are available in several parallel frameworks such as
-Intel HPX, Kokkos, TBB, gnu, and nvhpc. To conduct the benchmark, a vector of random numbers is
-first allocated and then subjected to a range of parallel algorithms. The primary objective of
-the benchmark is to gain valuable insights into the performance of different parallel algorithms
-and frameworks.
+transform and sort algorithms, which are available in several parallel frameworks
+such as Intel HPX, Kokkos, TBB, gnu, and nvhpc. To conduct the benchmark, a
+vector of random numbers is first allocated and then subjected to a range of parallel
+algorithms. The primary objective of the benchmark is to gain valuable insights
+into the performance of different parallel algorithms and frameworks.
 
 ## Example code
 
@@ -50,6 +50,16 @@ __gnu_parallel::transform(workVec.begin(), workVec.end(),
     workVec.begin(), [](double arg){ return std::tan(arg); });
 ```
 
+* Taskflow parallel transform
+
+```cpp
+tf::Executor executor(num_threads);
+
+tf::Taskflow t1;
+t1.for_each(workVec.begin(), workVec.end(), [] (double& arg) {
+    arg = std::tan(arg);});
+```
+
 ## How to Build
 
 Example build script:
@@ -88,7 +98,8 @@ do
     for NUM_THREADS in 1 2 4 8 16 32 64 128
     do
         echo "running nvcPar_cpu with $SIZE workload and $NUM_THREADS threads"
-        OMP_NUM_THREADS=$NUM_THREADS OMP_PROC_BIND=spread OMP_PLACES=threads ./nvcPar_cpu $SIZE
+        OMP_NUM_THREADS=$NUM_THREADS OMP_PROC_BIND=spread OMP_PLACES=threads 
+        ./nvcPar_cpu $SIZE
     
         echo "running hpxPar_gcc with $SIZE workload and $NUM_THREADS"
         ./hpxPar_gcc $SIZE --hpx:threads=$NUM_THREADS
@@ -97,10 +108,12 @@ do
         ./hpxPar_clang $SIZE --hpx:threads=$NUM_THREADS
     
         echo "running gnuPar_gcc with $SIZE workload and $NUM_THREADS"
-        OMP_NUM_THREADS=$NUM_THREADS OMP_PROC_BIND=spread OMP_PLACES=threads ./gnuPar_gcc $SIZE 
+        OMP_NUM_THREADS=$NUM_THREADS OMP_PROC_BIND=spread OMP_PLACES=threads 
+        ./gnuPar_gcc $SIZE 
     
         echo "running gnuPar_clang with $SIZE workload and $NUM_THREADS"
-        OMP_NUM_THREADS=$NUM_THREADS OMP_PROC_BIND=spread OMP_PLACES=threads ./gnuPar_clang $SIZE 
+        OMP_NUM_THREADS=$NUM_THREADS OMP_PROC_BIND=spread OMP_PLACES=threads 
+        ./gnuPar_clang $SIZE 
     
         echo "running kokkosPar_openmp_gcc with $SIZE workload and $NUM_THREADS"
         OMP_PROC_BIND=spread OMP_PLACES=threads ./kokkosPar_openmp_gcc $SIZE --kokkos-num-threads=$NUM_THREADS
